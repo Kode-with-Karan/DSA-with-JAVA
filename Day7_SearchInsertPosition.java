@@ -1,0 +1,35 @@
+public class Day7_SearchInsertPosition {
+    public static int searchInsert(int[] nums, int target) {
+        int s = 0;
+
+        int e = nums.length-1;
+
+        int mid = s + (e-s)/2;
+
+        while(s<=e){
+
+            if(nums[mid] == target){
+
+               
+
+                break;
+
+            }else if(nums[mid] > target){
+
+                e = mid - 1;
+
+            }else{
+
+                s = mid + 1;
+
+            }
+            mid = s + (e-s)/2;
+        }
+
+        return mid;
+    }
+    public static void main(String[] args) {
+        int arr[] ={1,1,2,2,3,4,4};
+        System.out.println(searchInsert(arr,2));
+    }
+}
