@@ -1,4 +1,4 @@
-public class Day9_MergeSortedArray {
+public class Day10_MergeSortedArray {
 
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
         int i = m - 1;     // nums1's index (the actual nums)
