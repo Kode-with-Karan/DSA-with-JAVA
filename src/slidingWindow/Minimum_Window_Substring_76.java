@@ -2,51 +2,46 @@ package slidingWindow;
 
 public class Minimum_Window_Substring_76 {
 
+    public static Boolean sahi(int[] have, int[] need){
+        for(int i =0; i<256; i++){
+            if(have[i]<need[i]){
+                return false;
+            }
+        }
+        return true;
+    }
     public static String minWindow(String s, String t) {
-
-        if (s.length() < t.length()) return "";
-
-        int[] freq = new int[128];
-
-        for (char c : t.toCharArray()) {
-            freq[c]++;
-        }
-
-        int left = 0;
-        int count = t.length();
-        int minLen = Integer.MAX_VALUE;
+        int low = 0;
         int start = 0;
+        int minLen = Integer.MAX_VALUE;
+        int[] have =  new int[256];
+        int[] need = new int[256];
 
-        for (int right = 0; right < s.length(); right++) {
+        for(int i = 0 ; i<t.length(); i++){
+            need[t.charAt(i)]++;
+        }
 
-            if (freq[s.charAt(right)] > 0) {
-                count--;
-            }
-
-            freq[s.charAt(right)]--;
-
-            while (count == 0) {
-
-                if (right - left + 1 < minLen) {
-                    minLen = right - left + 1;
-                    start = left;
+        for(int high = 0; high<s.length(); high++){
+            have[s.charAt(high)]++;
+            while(sahi(have,need)){
+                int len = high-low+1;
+                if(minLen>len){
+                    minLen = len;
+                    start = low;
                 }
-
-                freq[s.charAt(left)]++;
-
-                if (freq[s.charAt(left)] > 0) {
-                    count++;
-                }
-
-                left++;
+                have[s.charAt(low)]--;
+                low++;
             }
         }
 
-        if (minLen == Integer.MAX_VALUE) return "";
-        return s.substring(start, start + minLen);
+        if(minLen == Integer.MAX_VALUE){
+            return "";
+        }
+        return s.substring(start, start+minLen);
+
     }
 
     public static void main(String[] args){
-
+        System.out.println(minWindow("karan", "tt"));
     }
 }
